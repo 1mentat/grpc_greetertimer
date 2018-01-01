@@ -1,18 +1,15 @@
-package(default_visibility = ["//visibility:public"])
+load("@io_bazel_rules_go//proto:def.bzl", "go_grpc_library")
 
-load("@org_pubref_rules_protobuf//go:rules.bzl", "go_proto_library")
-
-filegroup(
-    name = "protos",
+proto_library(
+    name = "greetertimer_proto",
     srcs = [
         "greetertimer.proto",
     ],
 )
 
-go_proto_library(
+go_grpc_library(
     name = "go_default_library",
-    protos = [
-        ":protos",
-    ],
-    with_grpc = True,
+    importpath = "github.com/pubref/grpc_greetertimer/proto",
+    proto = ":greetertimer_proto",
+    visibility = ["//visibility:public"],
 )
